@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shanga Choi — Computer Science &amp; AI</title>
+<meta name="description" content="Shanga Choi — B.S. Computer Science (Minor: AI), Ewha Womans University. Research at ACPL &amp; MCNL on on-device LLM power efficiency, model compression, and reinforcement learning.">
+<style>
+  :root{
+    --navy:#742813;        /* Brandy — headings, brand, buttons */
+    --navy-light:#bc2b26;  /* Brick Red — links, subheadings */
+    --ink:#1b1f27;
+    --ink-soft:#525a68;
+    --paper:#ffffff;
+    --paper-soft:#f2f8f6;  /* pale Pearl Aqua tint */
+    --border:#eae3ef;      /* pale Vintage Lavender tint */
+    --accent:#f66685;      /* Bubblegum Pink — focus rings, small accents */
+    --accent2:#9269a6;     /* Vintage Lavender — secondary accent */
+    --highlight:#f9f6a2;   /* Lime Cream — subtle highlight */
+    --radius:10px;
+    --maxw:920px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "Malgun Gothic", sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+  }
+  a{color:var(--navy-light);}
+  a:focus, button:focus, summary:focus{outline:3px solid var(--accent); outline-offset:2px;}
+
+  .skip-link{
+    position:absolute; left:-999px; top:auto;
+    background:var(--navy); color:#fff; padding:10px 16px; border-radius:0 0 8px 0; z-index:100;
+  }
+  .skip-link:focus{left:0; top:0;}
+
+  header.site-header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(255,255,255,0.96);
+    backdrop-filter:saturate(180%) blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  header.site-header::before{
+    content:"";
+    display:block; height:4px;
+    background:linear-gradient(90deg, #742813, #bc2b26, #f66685, #9269a6, #7ac3b6, #f9f6a2);
+  }
+  .nav-wrap{
+    max-width:var(--maxw); margin:0 auto; padding:14px 20px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{font-weight:700; color:var(--navy); text-decoration:none; font-size:1.05rem; letter-spacing:.02em;}
+  nav.primary-nav ul{list-style:none; display:flex; gap:22px; margin:0; padding:0;}
+  nav.primary-nav a{color:var(--ink); text-decoration:none; font-size:.95rem; font-weight:500;}
+  nav.primary-nav a:hover{color:var(--navy);}
+  .nav-toggle{display:none; background:none; border:1px solid var(--border); border-radius:6px; padding:6px 10px; font-size:1.1rem; cursor:pointer;}
+
+  main{max-width:var(--maxw); margin:0 auto; padding:0 20px;}
+
+  section{padding:56px 0; border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+  h2{
+    color:var(--navy); font-size:1.4rem; letter-spacing:.03em; text-transform:uppercase;
+    margin:0 0 28px 0; padding-bottom:8px; border-bottom:2px solid var(--navy);
+    display:inline-block;
+  }
+
+  /* Hero */
+  .hero{padding:64px 0 48px 0; border-bottom:1px solid var(--border);}
+  .hero-top{display:flex; align-items:center; gap:28px; margin-bottom:6px;}
+  .hero-photo{
+    width:132px; height:132px; border-radius:50%; object-fit:cover; flex-shrink:0;
+    border:3px solid var(--paper-soft); box-shadow:0 0 0 1px var(--border);
+  }
+  .hero h1{font-size:2.2rem; margin:0 0 2px 0; color:var(--ink);}
+  .hero .aka{color:var(--ink-soft); font-size:.92rem; font-weight:500; font-style:italic; margin:0 0 8px 0;}
+  .hero .tagline{color:var(--navy-light); font-size:1.15rem; font-weight:600; margin:0 0 18px 0;}
+  .hero p.bio{max-width:640px; color:var(--ink-soft); font-size:1.02rem;}
+  .hero .cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:22px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 18px; border-radius:999px; text-decoration:none; font-weight:600; font-size:.92rem;
+    border:1.5px solid var(--navy); transition:background .15s, color .15s;
+  }
+  .btn-solid{background:var(--navy); color:#fff;}
+  .btn-solid:hover{background:var(--navy-light);}
+  .btn-outline{background:transparent; color:var(--navy);}
+  .btn-outline:hover{background:var(--paper-soft);}
+  .contact-strip{color:var(--ink-soft); font-size:.92rem; margin-top:16px;}
+  .contact-strip span{margin-right:16px; white-space:nowrap;}
+
+  /* Timeline / cards */
+  .entry{display:grid; grid-template-columns:170px 1fr; gap:18px; margin-bottom:26px;}
+  .entry:last-child{margin-bottom:0;}
+  .entry .when{color:var(--ink-soft); font-size:.88rem; font-weight:600; padding-top:2px;}
+  .entry .what h3{margin:0 0 4px 0; font-size:1.05rem; color:var(--ink);}
+  .entry .what .place{color:var(--navy-light); font-weight:600; font-size:.92rem; margin-bottom:6px;}
+  .entry .what .role{font-style:italic; color:var(--ink-soft); font-size:.92rem; margin-bottom:6px;}
+  .entry ul{margin:6px 0 0 0; padding-left:20px; color:var(--ink-soft); font-size:.95rem;}
+  .entry ul li{margin-bottom:4px;}
+  .pill-row{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+  .pill{background:var(--paper-soft); border:1px solid var(--border); color:var(--navy); font-size:.78rem; padding:3px 10px; border-radius:999px;}
+
+  /* Projects */
+  .cards{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:18px;}
+  .card{
+    border:1px solid var(--border); border-radius:var(--radius); padding:20px; background:var(--paper-soft);
+    display:flex; flex-direction:column;
+  }
+  .card h3{margin:0 0 4px 0; font-size:1.02rem; color:var(--ink);}
+  .card .card-meta{font-size:.8rem; color:var(--ink-soft); margin-bottom:10px;}
+  .card p{font-size:.92rem; color:var(--ink-soft); margin:0 0 12px 0; flex-grow:1;}
+  .card a.repo-link{font-size:.85rem; font-weight:600; text-decoration:none;}
+  .card a.repo-link:hover{text-decoration:underline;}
+
+  /* Skills */
+  .skill-group{margin-bottom:20px;}
+  .skill-group h3{margin:0 0 10px 0; font-size:.95rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; font-weight:700;}
+  .skill-tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{background:var(--paper-soft); border:1px solid var(--border); padding:5px 12px; border-radius:8px; font-size:.86rem; color:var(--ink);}
+  .tag b{color:var(--navy);}
+
+  /* Contact */
+  .contact-grid{display:flex; flex-wrap:wrap; gap:28px;}
+  .contact-item{display:flex; flex-direction:column; gap:2px;}
+  .contact-item .label{font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); font-weight:700;}
+  .contact-item a, .contact-item span.value{font-size:1rem; color:var(--ink);}
+
+  footer{padding:28px 20px; text-align:center; color:var(--ink-soft); font-size:.85rem;}
+
+  @media (max-width:680px){
+    nav.primary-nav{
+      position:absolute; top:100%; left:0; right:0; background:var(--paper);
+      border-bottom:1px solid var(--border); display:none;
+    }
+    nav.primary-nav.open{display:block;}
+    nav.primary-nav ul{flex-direction:column; padding:14px 20px; gap:14px;}
+    .nav-toggle{display:inline-block;}
+    .entry{grid-template-columns:1fr;}
+    .entry .when{padding-top:0;}
+    .hero-top{flex-direction:column; align-items:flex-start; gap:16px;}
+  }
+
+  @media print{
+    header.site-header, .nav-toggle, .cta-row{display:none;}
+    section{border-bottom:none; padding:18px 0;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="#top">Shanga Choi</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">☰ Menu</button>
+    <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#awards">Awards</a></li>
+        <li><a href="#activities">Activities</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div id="top"></div>
+
+  <section class="hero" id="about" aria-labelledby="about-heading">
+    <div class="hero-top">
+      <img class="hero-photo" src="assets/shanga_photo.jpg" alt="Portrait photo of Shanga Choi">
+      <div>
+        <h1 id="about-heading">Shanga Choi</h1>
+        <p class="aka">aka Hannah Choi</p>
+        <p class="tagline">B.S. Computer Science (Minor: Artificial Intelligence) · Ewha Womans University</p>
+      </div>
+    </div>
+    <p class="bio">
+      I'm a senior at Ewha Womans University studying Computer Science with a minor in Artificial Intelligence,
+      interested in edge ML and on-device inference, model compression (pruning &amp; quantization), and
+      reinforcement learning. I'm currently an undergraduate research assistant at the AI Computing Platform Lab
+      (ACPL), where I work on the power efficiency of large language models running directly on mobile devices,
+      and previously did research at the Multiagent Communications and Networking Lab (MCNL) on pruning and
+      quantization for edge deployment. I also lead HoPy, a student-run practical machine learning club.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-solid" href="mailto:gloody@ewha.ac.kr">Email me</a>
+      <a class="btn btn-outline" href="https://github.com/jj8ng" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn-outline" href="assets/Shanga_Choi_CV.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
+    </div>
+    <p class="contact-strip">
+      <span>📍 Seoul, South Korea</span>
+      <span>✉️ gloody@ewha.ac.kr</span>
+    </p>
+  </section>
+
+  <section id="education" aria-labelledby="education-heading">
+    <h2 id="education-heading">Education</h2>
+
+    <div class="entry">
+      <div class="when">Mar 2023 – Aug 2027 (expected)</div>
+      <div class="what">
+        <h3>Ewha Womans University</h3>
+        <div class="place">Seoul, South Korea</div>
+        <div class="role">B.S. in Computer Science (Minor: Artificial Intelligence) · Senior</div>
+        <div class="pill-row">
+          <span class="pill">AI Quantization/Distillation</span>
+          <span class="pill">Machine Learning</span>
+          <span class="pill">Deep Learning</span>
+          <span class="pill">Reinforcement Learning</span>
+          <span class="pill">Data Analytics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Sep 2025 – Dec 2025</div>
+      <div class="what">
+        <h3>University of California, Davis</h3>
+        <div class="place">Davis, CA, U.S.A.</div>
+        <div class="role">Study Abroad Program (Exchange Student)</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Mar 2019 – Feb 2022</div>
+      <div class="what">
+        <h3>Gyeonggi Academy of Foreign Languages</h3>
+        <div class="place">Gyeonggi, South Korea</div>
+        <div class="role">Major: English · Minor: Mandarin (Chinese)</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" aria-labelledby="research-heading">
+    <h2 id="research-heading">Research Experience</h2>
+    <div class="entry" style="grid-template-columns:170px 1fr;">
+      <div class="when">Jul 2026 – Present</div>
+      <div class="what">
+        <h3>Undergraduate Research Assistant</h3>
+        <div class="place">ACPL (AI Computing Platform Lab), Ewha Womans University</div>
+        <ul>
+          <li>Designed and conducted controlled experiments measuring the battery cost of keeping a language model resident in mobile memory versus reloading it on demand</li>
+          <li>Building a power measurement system in Python to record energy consumption of large language models running directly on Android smartphones, under preparation for publication</li>
+        </ul>
+      </div>
+    </div>
+    <div class="entry" style="grid-template-columns:170px 1fr;">
+      <div class="when">Jun 2025 – Sep 2025</div>
+      <div class="what">
+        <h3>Undergraduate Research Assistant</h3>
+        <div class="place">MCNL (Multiagent Communications and Networking Lab), Ewha Womans University</div>
+        <ul>
+          <li>Performed Shapley-value-based pruning on autoencoder models, improving model compactness for edge deployment (TensorFlow)</li>
+          <li>Quantized pruned models to multiple bit-widths using TFLite and evaluated trade-offs between size, latency, and classification performance on MNIST/Fashion-MNIST with SVM classifiers</li>
+          <li>Implemented an AE+SVM pipeline on Raspberry Pi for on-device inference, validating edge feasibility and measuring inference latency and resource utilization</li>
+          <li>Presented the work at the 6th Korea Artificial Intelligence Conference</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications" aria-labelledby="publications-heading">
+    <h2 id="publications-heading">Publications &amp; Copyrighted Works</h2>
+    <div class="entry" style="grid-template-columns:36px 1fr;">
+      <div class="when">[1]</div>
+      <div class="what">
+        <p style="margin:0; color:var(--ink-soft); font-size:.95rem;">
+          Shanga Choi, Kwon Sohyun, Joohong Rheey, Hyunggon Park. (2025). <em>An Empirical Study of On-Device
+          Model Compression via Pruning and Quantization.</em> The 6th Korea Artificial Intelligence Conference.
+          Presented in Jeju, Korea, 25–27 Sep 2025.
+        </p>
+      </div>
+    </div>
+    <div class="entry" style="grid-template-columns:36px 1fr;">
+      <div class="when">[2]</div>
+      <div class="what">
+        <p style="margin:0; color:var(--ink-soft); font-size:.95rem;">
+          <em>Software for Autoencoder-based Model Quantization and Performance Analysis.</em> Registered
+          work-for-hire copyright (Copyright Act Article 9), Ewha Womans University Industry-Academic
+          Cooperation Foundation. Shanga Choi, Kwon Sohyun, Joohong Rheey, Hyunggon Park.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-heading">
+    <h2 id="projects-heading">Projects</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>2048 RL Agent (DQN)</h3>
+        <div class="card-meta">KangHwa Sisters · 2025</div>
+        <p>A Dueling + Double DQN agent for 2048, trained in Python with prioritized experience replay and deployed to the browser via ONNX Runtime Web for real-time play &amp; Q-value visualization. Ablations showed Dueling+Double DQN and PER together lifted average score from a 2,241 baseline to 7,403–8,225.</p>
+        <a class="repo-link" href="https://github.com/jj8ng/2048-rl-project" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+      <div class="card">
+        <h3>Movie Recommendation System</h3>
+        <div class="card-meta">Personal Project · 2026</div>
+        <p>Rating-based recommendation engine testing whether TF-IDF content-based ranking actually beats a popularity/random baseline, with an evaluation pipeline against held-out user ratings. Applies and extends TF-IDF ideas first explored in an earlier HoPy club project (2023).</p>
+        <a class="repo-link" href="https://github.com/jj8ng/2026-recsys" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+      <div class="card">
+        <h3>ITS Site-Selection Analysis</h3>
+        <div class="card-meta">HoPy · 2024</div>
+        <p>Traffic flow analysis of Osan City to identify candidate sites for intelligent transportation system (ITS) infrastructure, using basic GIS tools and traffic data analysis.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="awards" aria-labelledby="awards-heading">
+    <h2 id="awards-heading">Awards, Scholarships &amp; Honors</h2>
+
+    <div class="entry">
+      <div class="when">Sep 2025 – Jan 2026</div>
+      <div class="what">
+        <h3>Korea-U.S. Advanced Industry Youth Exchange Program</h3>
+        <div class="role">Hosted by the Ministry of Trade, Industry and Resources (MOTIR), Republic of Korea &amp; Korea Institute for Advancement of Technology (KIAT)</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Mar 2023 – Aug 2023</div>
+      <div class="what">
+        <h3>Scholarship Name (TBD)</h3>
+        <div class="role">Hosted by the National Forestry Cooperative Federation (NFCF), Republic of Korea</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="activities" aria-labelledby="activities-heading">
+    <h2 id="activities-heading">Leadership &amp; Activities</h2>
+
+    <div class="entry">
+      <div class="when">Mar 2025 – Aug 2025</div>
+      <div class="what">
+        <h3>KangHwa Sisters</h3>
+        <div class="place">Seoul, South Korea</div>
+        <div class="role">Club Member</div>
+        <ul>
+          <li>Reinforcement learning study &amp; project club combining weekly study sessions (theory, papers, code labs) with project teams implementing and deploying RL models</li>
+          <li>Project: Deep Q-Network algorithm optimization and application to 2048 (2025)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Feb 2025 – Sep 2025</div>
+      <div class="what">
+        <h3>Korean Culture Diplomatic Mission (KCDM)</h3>
+        <div class="place">Seoul, South Korea</div>
+        <div class="role">VIP Liaison</div>
+        <ul>
+          <li>Coordinated logistics and communication between visiting delegates and host organizations, ensuring smooth scheduling of official events</li>
+          <li>Escorted and assisted VIP guests throughout mission activities, addressing protocol needs and last-minute changes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Sep 2024 – Feb 2025</div>
+      <div class="what">
+        <h3>Student Council, Department of Computer Science</h3>
+        <div class="place">Ewha Womans University, Seoul, South Korea</div>
+        <div class="role">Design Team Member</div>
+        <ul>
+          <li>Designed and distributed card-news graphics to communicate semester announcements to students, and participated in the production team for school apparel</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Sep 2023 – Aug 2024</div>
+      <div class="what">
+        <h3>HoPy</h3>
+        <div class="place">Seoul, South Korea</div>
+        <div class="role">Club President</div>
+        <ul>
+          <li>Student-led club focused on practical machine learning and data analysis skills; members collaborate on end-to-end projects and run study groups to apply theory to real datasets and deployable models</li>
+          <li>Led projects including a rating-based movie recommendation program (2023) and an ITS infrastructure site-selection analysis via traffic flow data of Osan City (2024)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">Mar 2024 – Aug 2024</div>
+      <div class="what">
+        <h3>ECC (Ewha Computer Club)</h3>
+        <div class="place">Seoul, South Korea</div>
+        <div class="role">Club Member</div>
+        <ul>
+          <li>Participated in a student-led backend development study group</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-heading">
+    <h2 id="skills-heading">Skills</h2>
+
+    <div class="skill-group">
+      <h3>Technical</h3>
+      <div class="skill-tags">
+        <span class="tag"><b>Java, C, Python, PyTorch</b> — Advanced</span>
+        <span class="tag"><b>TensorFlow / TFLite</b> — Advanced</span>
+        <span class="tag"><b>Raspberry Pi / Edge Deployment</b> — Advanced</span>
+        <span class="tag"><b>Reinforcement Learning</b> (DQN, reward shaping, replay buffers) — Intermediate</span>
+        <span class="tag"><b>OpenAI Gym</b> — Familiar</span>
+        <span class="tag"><b>Basic GIS / Traffic Data Analysis</b> — Familiar</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h3>Languages</h3>
+      <div class="skill-tags">
+        <span class="tag"><b>Korean</b> — Native</span>
+        <span class="tag"><b>English</b> — Native</span>
+        <span class="tag"><b>Mandarin Chinese</b> — Advanced</span>
+        <span class="tag"><b>Spanish</b> — Familiar</span>
+        <span class="tag">TOEFL iBT: 118 (Aug 2026)</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="label">Email</span>
+        <a href="mailto:gloody@ewha.ac.kr">gloody@ewha.ac.kr</a>
+      </div>
+      <div class="contact-item">
+        <span class="label">GitHub</span>
+        <a href="https://github.com/jj8ng" target="_blank" rel="noopener">github.com/jj8ng</a>
+      </div>
+      <div class="contact-item">
+        <span class="label">Location</span>
+        <span class="value">Seoul, South Korea</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> Shanga Choi
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  var toggle = document.getElementById('navToggle');
+  var nav = document.getElementById('primaryNav');
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+</body>
+</html>
