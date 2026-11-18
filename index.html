@@ -138,9 +138,11 @@
   .card--roblox{background:rgb(13,105,172); border-color:rgb(13,105,172);}
   .card--roblox h3, .card--roblox p{color:#fff;}
   .card--roblox .card-meta{color:rgba(255,255,255,.85);}
-  .card--roblox a.repo-link{background:#fff; padding:4px 12px; border-radius:999px; align-self:flex-start;}
-  
-  .legend{list-style:none; margin:28px 0 0 0; padding:16px 0 0 0; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:10px 24px; font-size:.88rem; color:var(--ink-soft);}
+  .card--roblox a.repo-link{color:#fff;}
+  .section-head{display:flex; flex-wrap:wrap; align-items:center; gap:10px 28px; margin-bottom:28px;}
+  .section-head h2{margin:0;}
+
+  .legend{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px 20px; font-size:.85rem; color:var(--ink-soft);}
   .legend li{display:flex; align-items:center; gap:8px;}
   .swatch{width:16px; height:16px; border-radius:4px; display:inline-block; flex-shrink:0;}
   .swatch--school{background:var(--paper-soft); border:1px solid var(--border);}
@@ -308,7 +310,14 @@
   </section>
 
  <section id="projects" class="page-section" aria-labelledby="projects-heading">
-    <h2 id="projects-heading">Projects</h2>
+    <div class="section-head">
+      <h2 id="projects-heading">Projects</h2>
+      <ul class="legend" aria-label="Project type colors">
+        <li><span class="swatch swatch--school"></span>School / Club Project</li>
+        <li><span class="swatch swatch--contest"></span>Competition / Hackathon</li>
+        <li><span class="swatch swatch--roblox"></span>Roblox Game</li>
+      </ul>
+    </div>
     <div class="cards">
       <div class="card card--contest">
         <h3>2026 Solana Hackathon</h3>
@@ -359,12 +368,6 @@
         <a class="repo-link" href="https://github.com/jj8ng/-2026-1-DBProject_Team10" target="_blank" rel="noopener">View on GitHub ↗</a>
       </div>
     </div>
-
-    <ul class="legend" aria-label="Project type colors">
-      <li><span class="swatch swatch--school"></span>School / Club Project</li>
-      <li><span class="swatch swatch--contest"></span>Competition / Hackathon</li>
-      <li><span class="swatch swatch--roblox"></span>Roblox Game</li>
-    </ul>
   </section>
 
   <section id="skills" class="page-section" aria-labelledby="skills-heading">
