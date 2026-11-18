@@ -366,6 +366,64 @@
   © <span id="year"></span> Shanga Choi
 </footer>
 
+<script data-goatcounter="https://YOUR-CODE.goatcounter.com/count"
+        data-goatcounter-settings='{"no_onload":true}'
+        async src="//gc.zgo.at/count.js"></script>
+
+<script>
+(function(){
+  var KEY='siteLog', MAX=500, queue=[];
+  var admin=/[?&]admin\b/.test(location.search);
+  if(admin){ try{localStorage.setItem('skip_goatcounter','t');}catch(e){} } // 내 방문은 집계 제외
+
+  function load(){ try{return JSON.parse(localStorage.getItem(KEY))||[];}catch(e){return [];} }
+  function save(a){ try{localStorage.setItem(KEY,JSON.stringify(a.slice(-MAX)));}catch(e){} }
+  function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9가-힣]+/g,'-').replace(/^-|-$/g,''); }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  function gc(data){
+    if(window.goatcounter && window.goatcounter.count){ window.goatcounter.count(data); }
+    else queue.push(data);
+  }
+  window.addEventListener('load', function(){ queue.splice(0).forEach(gc); });
+
+  // type: view(화면) / link / email / cv
+  window.track=function(type,name){
+    var a=load(); a.push({t:Date.now(),type:type,name:name}); save(a);
+    if(type==='view') gc({path:'/'+slug(name), title:name});
+    else gc({path:type+'/'+slug(name), title:name, event:true});
+    if(admin) render();
+  };
+
+  document.addEventListener('click',function(e){
+    var a=e.target.closest && e.target.closest('a'); if(!a) return;
+    if(a.closest('nav.primary-nav')||a.classList.contains('brand')||a.classList.contains('skip-link')) return; // 화면 이동은 view로 기록됨
+    var href=a.getAttribute('href')||'';
+    var label=(a.textContent||'').trim().replace(/\s+/g,' ').slice(0,60)||href;
+    var type='link';
+    if(href.indexOf('mailto:')===0) type='email';
+    else if(/\.pdf($|\?)/i.test(href)) type='cv';
+    track(type,label);
+  },true);
+
+  function render(){
+    var box=document.getElementById('trackPanel');
+    if(!box){
+      box=document.createElement('div'); box.id='trackPanel';
+      box.style.cssText='position:fixed;right:12px;bottom:12px;z-index:999;width:300px;max-height:60vh;overflow:auto;background:#fff;border:1px solid #e63946;border-radius:10px;padding:12px;font:12px/1.5 monospace;box-shadow:0 4px 18px rgba(0,0,0,.18)';
+      document.body.appendChild(box);
+    }
+    var a=load(), c={};
+    a.forEach(function(r){ var k=r.type+' · '+r.name; c[k]=(c[k]||0)+1; });
+    var rows=Object.keys(c).sort(function(x,y){return c[y]-c[x];}).map(function(k){return c[k]+'  '+esc(k);});
+    var recent=a.slice(-8).reverse().map(function(r){return new Date(r.t).toLocaleTimeString()+' '+esc(r.type)+' '+esc(r.name);});
+    box.innerHTML='<b>이 브라우저 기록</b> ('+a.length+')<hr>'+(rows.join('<br>')||'-')+'<hr>최근<br>'+recent.join('<br>')+'<hr><button id="trackClear">기록 지우기</button>';
+    box.querySelector('#trackClear').onclick=function(){save([]);render();};
+  }
+  if(admin) render();
+})();
+</script>
+
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -376,6 +434,7 @@
 
     function showSection(id){
       if(validIds.indexOf(id) === -1) return;
+      track('view', id);
       sections.forEach(function(s){ s.classList.toggle('active', s.id === id); });
       navLinks.forEach(function(a){ a.classList.toggle('active-link', a.getAttribute('href') === '#' + id); });
     }
