@@ -133,6 +133,21 @@
   .card p{font-size:.92rem; color:var(--ink-soft); margin:0 0 12px 0; flex-grow:1;}
   .card a.repo-link{font-size:.85rem; font-weight:600; text-decoration:none;}
   .card a.repo-link:hover{text-decoration:underline;}
+  .card--contest{background:#baa8dc; border-color:#baa8dc;}
+  .card--contest h3, .card--contest p, .card--contest .card-meta{color:var(--ink);}
+  .card--contest a.repo-link{color:var(--ink); text-decoration:underline;}
+  
+  .card--roblox{background:rgb(13,105,172); border-color:rgb(13,105,172);}
+  .card--roblox h3, .card--roblox p{color:#fff;}
+  .card--roblox .card-meta{color:rgba(255,255,255,.85);}
+  .card--roblox a.repo-link{color:#fff; text-decoration:underline;}
+  
+  .legend{list-style:none; margin:28px 0 0 0; padding:16px 0 0 0; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:10px 24px; font-size:.88rem; color:var(--ink-soft);}
+  .legend li{display:flex; align-items:center; gap:8px;}
+  .swatch{width:16px; height:16px; border-radius:4px; display:inline-block; flex-shrink:0;}
+  .swatch--school{background:var(--paper-soft); border:1px solid var(--border);}
+  .swatch--contest{background:#baa8dc;}
+  .swatch--roblox{background:rgb(13,105,172);}
 
   /* Skills */
   .skill-group{margin-bottom:20px;}
@@ -294,10 +309,10 @@
     </div>
   </section>
 
-  <section id="projects" class="page-section" aria-labelledby="projects-heading">
+ <section id="projects" class="page-section" aria-labelledby="projects-heading">
     <h2 id="projects-heading">Projects</h2>
     <div class="cards">
-      <div class="card">
+      <div class="card card--contest">
         <h3>2026 Solana Hackathon</h3>
         <div class="card-meta">Google Cloud × Solana AI Agentic Commerce Hackathon · 2026</div>
         <p>MovieEscrow: a B2B settlement system for independent cinemas and film festivals. Ticket payments go into per-movie Solana escrow accounts, separate from operator funds. Gemini turns distribution contracts into approved settlement rules, and a settlement agent isolates only the flagged amounts as disputed. Built with React, TypeScript, Express, and Anchor (Rust) on Solana Devnet, deployed on Google Cloud Run.</p>
@@ -309,7 +324,7 @@
         <p>A Dueling + Double DQN agent for 2048, trained in Python with prioritized experience replay and deployed to the browser via ONNX Runtime Web for real-time play &amp; Q-value visualization. Ablations showed Dueling+Double DQN and PER together lifted average score from a 2,241 baseline to 7,403–8,225.</p>
         <a class="repo-link" href="https://github.com/jj8ng/2048-rl-project" target="_blank" rel="noopener">View on GitHub ↗</a>
       </div>
-      <div class="card">
+      <div class="card card--contest">
         <h3>2026 Data+AI Innovation Challenge · Ministry of Science and ICT (MSIT)</h3>
         <div class="card-meta">Competition Entry · Team Project · 2026</div>
         <p>Uses national high school disclosure data from the School Information Disclosure Service (학교알리미) to predict which schools face a higher risk of student dropout in the following year. Risk levels are combined with counseling usage into a matrix that prioritizes Seoul high schools for limited counseling resources, and a counselor-allocation simulation estimates the staffing needed and where external counseling referrals fit better.</p>
@@ -321,7 +336,7 @@
         <p>Rating-based recommendation engine testing whether TF-IDF content-based ranking actually beats a popularity/random baseline, with an evaluation pipeline against held-out user ratings. Applies and extends TF-IDF ideas first explored in an earlier HoPy club project (2023).</p>
         <a class="repo-link" href="https://github.com/jj8ng/2026-recsys" target="_blank" rel="noopener">View on GitHub ↗</a>
       </div>
-      <div class="card">
+      <div class="card card--roblox">
         <h3>Under the Tall Trees</h3>
         <div class="card-meta">Roblox Game · 2026 · AI-assisted development with Claude</div>
         <p>A co-op horror game on Roblox for solo or team play (up to 8 players). Players cut their way through endlessly tall grass, but the noise draws a monster that hunts by sound, so they must move carefully while searching the field for scattered relics. The game has a day/night cycle and gets harder with each level, and it runs on both desktop and mobile. I designed the game and iterated on it from playtester feedback after publishing, with the code written together with Claude.</p>
@@ -346,6 +361,12 @@
         <a class="repo-link" href="https://github.com/jj8ng/-2026-1-DBProject_Team10" target="_blank" rel="noopener">View on GitHub ↗</a>
       </div>
     </div>
+
+    <ul class="legend" aria-label="Project type colors">
+      <li><span class="swatch swatch--school"></span>School / Club Project</li>
+      <li><span class="swatch swatch--contest"></span>Competition / Hackathon</li>
+      <li><span class="swatch swatch--roblox"></span>Roblox Game</li>
+    </ul>
   </section>
 
   <section id="skills" class="page-section" aria-labelledby="skills-heading">
